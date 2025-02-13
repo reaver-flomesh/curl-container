@@ -5,12 +5,12 @@ container_ids=`buildah ls --format "{{.ContainerID}}"`
 # default setttings for official curl images
 debian_base=docker.io/debian
 fedora_base=docker.io/fedora
-base=docker.io/alpine:3.19.1
+base=docker.io/alpine:3.21.2
 arch=""
 compiler="gcc"
 build_opts=" --enable-static --disable-ldap --enable-ipv6 --enable-unix-sockets -with-ssl --with-libssh2 --with-nghttp2=/usr --with-gssapi"
-dev_deps="git zsh libssh2 libssh2-dev libssh2-static autoconf automake build-base groff openssl curl-dev python3 python3-dev libtool curl stunnel perl nghttp2 brotli brotli-dev krb5-dev libpsl-dev"
-base_deps="brotli brotli-dev libssh2 nghttp2-dev libidn2 krb5 libpsl"
+dev_deps="git zsh libssh2 libssh2-dev libssh2-static autoconf automake build-base groff openssl curl-dev python3 python3-dev libtool curl stunnel perl nghttp2 brotli brotli-dev krb5-dev libpsl-dev zstd"
+base_deps="brotli brotli-dev libssh2 nghttp2-dev libidn2 krb5 libpsl zstd"
 
 ##############################################
 # debian dev image
@@ -37,7 +37,7 @@ build_fedora:
 #  > make branch_or_ref=master release_tag=master run_tests=1 build_arm64
 #
 build_arm64:
-	./create_dev_image.sh "linux/arm" ${base} ${compiler} ${dev_deps} ${build_opts} ${branch_or_ref} curl-dev-linux-arm64:${release_tag} ${run_tests}
+	./create_dev_image.sh "arm64" ${base} ${compiler} ${dev_deps} ${build_opts} ${branch_or_ref} curl-dev-linux-arm64:${release_tag} ${run_tests}
 # 	./create_base_image.sh "linux/arm64" ${base} localhost/curl-dev-linux-arm64:${release_tag} ${base_deps} curl-base-linux-arm64:${release_tag} ${release_tag}
 # 	./create_appliance_image.sh "linux/arm64" localhost/curl-base-linux-arm64:${release_tag} curl-linux-arm64:${release_tag} ${release_tag}
 
